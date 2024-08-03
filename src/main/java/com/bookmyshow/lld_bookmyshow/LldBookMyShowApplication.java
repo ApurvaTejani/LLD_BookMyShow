@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LldBookMyShowApplication {
 
     public static void main(String[] args) {
-        City city= new City();
+
         SpringApplication.run(LldBookMyShowApplication.class, args);
     }
 
