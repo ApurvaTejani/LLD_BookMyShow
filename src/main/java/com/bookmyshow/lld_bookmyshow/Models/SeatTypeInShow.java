@@ -16,7 +16,7 @@ public class SeatTypeInShow extends BaseClass{
     private SeatType seatType;
 
     @ManyToOne
-    private MovieShow movieShow;
+    private Show show;
 
     private int price;
 }

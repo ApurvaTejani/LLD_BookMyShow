@@ -1,10 +1,7 @@
 package com.bookmyshow.lld_bookmyshow.Models;
 
 import com.bookmyshow.lld_bookmyshow.Models.enums.SeatStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +16,7 @@ public class SeatInShow extends BaseClass{
     private Seat seat;
 
     @ManyToOne
-    private MovieShow movieShow;
+    private Show show;
 
     private Date statusUpdatedAt;
 

@@ -16,10 +16,8 @@ public class Theatre extends BaseClass{
     private String name;
     private String address;
 
-    @OneToMany(mappedBy = "theatre")
-    private List<Auditorium> auditoriums;
-
-    private int maxSeats;
+    @OneToMany(mappedBy="theatre")
+    private List<Show> shows;
 
     @ManyToOne
     private City city;

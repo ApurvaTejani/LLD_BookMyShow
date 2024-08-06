@@ -9,13 +9,18 @@ import java.util.Date;
 import java.util.List;
 
 
-@Entity
+@Entity(name="shows")
 @Getter
 @Setter
-public class MovieShow extends BaseClass{
+public class Show extends BaseClass{
+
+    @ManyToOne
+    private Movie movie;
 
     private Date startTime;
     private Date endTime;
+
+    private int duration;
 
     @ManyToOne
     private Auditorium auditorium;
@@ -23,5 +28,8 @@ public class MovieShow extends BaseClass{
     @ElementCollection
     @Enumerated(EnumType.ORDINAL)
     private List<Feature> requiredFeatures;
+
+    @ManyToOne
+    private Theatre theatre;
 
 }

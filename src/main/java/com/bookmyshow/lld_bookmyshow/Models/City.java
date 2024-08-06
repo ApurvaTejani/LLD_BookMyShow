@@ -19,5 +19,4 @@ public class City extends BaseClass {
     @OneToMany(mappedBy = "city")
     private List<Theatre> theatres;
 
-
 }
