@@ -14,6 +14,7 @@ import java.util.List;
 public class User extends BaseClass{
     private String name;
     private String email;
+    private String password;
 
 
     @OneToMany(mappedBy = "user")

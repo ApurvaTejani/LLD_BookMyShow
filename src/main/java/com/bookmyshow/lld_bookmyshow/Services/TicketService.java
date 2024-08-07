@@ -8,6 +8,7 @@ import com.bookmyshow.lld_bookmyshow.Repository.ShowRepository;
 import com.bookmyshow.lld_bookmyshow.Repository.TicketRepository;
 import com.bookmyshow.lld_bookmyshow.Repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class TicketService {
 
     private TicketRepository tr;
 
+    @Autowired
     public TicketService(UserRepository ur, ShowRepository sr, SeatInShowRepository sisr,TicketRepository tr) {
         this.ur = ur;
         this.sr = sr;

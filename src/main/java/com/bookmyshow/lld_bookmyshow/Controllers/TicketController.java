@@ -24,10 +24,12 @@ public class TicketController {
             Ticket ticket=ts.bookTicket(requestDTO.getSeatInShowId(),requestDTO.getShowId(),requestDTO.getUserId());
             responseDTO.setTicketId(ticket.getId());
             responseDTO.setResponseStatus(TicketResponseStatus.SUCCESS);
+            responseDTO.setAmount(ticket.getAmount());
 
         }
         catch (Exception ex){
             responseDTO.setResponseStatus(TicketResponseStatus.FAILED);
+            responseDTO.setMessage(ex.getMessage());
         }
         return responseDTO;
     }
