@@ -18,7 +18,7 @@ public class BaseClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @CreatedDate
     private Date createdAt;

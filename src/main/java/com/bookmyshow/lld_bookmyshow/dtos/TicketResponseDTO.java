@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TicketResponseDTO {
-    private Long ticketId;
+    private int ticketId;
     private int amount;
     private TicketResponseStatus responseStatus;
 }
