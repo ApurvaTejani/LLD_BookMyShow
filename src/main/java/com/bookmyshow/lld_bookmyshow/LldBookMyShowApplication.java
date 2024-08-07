@@ -4,11 +4,14 @@ import com.bookmyshow.lld_bookmyshow.Controllers.UserSignUpController;
 import com.bookmyshow.lld_bookmyshow.Models.City;
 import com.bookmyshow.lld_bookmyshow.dtos.UserRequestDTO;
 import com.bookmyshow.lld_bookmyshow.dtos.UserResponseDTO;
+import com.bookmyshow.lld_bookmyshow.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+import java.util.Scanner;
 
 @SpringBootApplication
 @EnableJpaAuditing
@@ -20,11 +23,9 @@ public class LldBookMyShowApplication implements CommandLineRunner {
 
     @Override
     public void run (String... arg)throws Exception{
-        UserRequestDTO requestDTO= new UserRequestDTO();
-        requestDTO.setEmail("apurvtejani29@gmail.com");
-        requestDTO.setName("Apurva Tejani");
-        requestDTO.setPassword("11232323");
-        UserResponseDTO responseDTO=usc.signUpUser(requestDTO);
+        Scanner sc = new Scanner(System.in);
+        UserManager um = new UserManager();
+        um.initializeUser(usc,sc);
     }
 
     public static void main(String[] args) {
