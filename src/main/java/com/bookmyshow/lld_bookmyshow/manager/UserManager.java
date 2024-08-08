@@ -1,6 +1,7 @@
 package com.bookmyshow.lld_bookmyshow.manager;
 
 import com.bookmyshow.lld_bookmyshow.Controllers.UserSignUpController;
+import com.bookmyshow.lld_bookmyshow.Models.enums.Role;
 import com.bookmyshow.lld_bookmyshow.Repository.UserRepository;
 import com.bookmyshow.lld_bookmyshow.dtos.UserRequestDTO;
 import com.bookmyshow.lld_bookmyshow.dtos.UserResponseDTO;
@@ -26,6 +27,7 @@ public class UserManager {
                 requestDTO.setEmail(email);
                 requestDTO.setName(name);
                 requestDTO.setPassword(pass);
+                requestDTO.setRole(role);
             }
             System.out.println("Do you want to exit");
             String check = sc.nextLine();

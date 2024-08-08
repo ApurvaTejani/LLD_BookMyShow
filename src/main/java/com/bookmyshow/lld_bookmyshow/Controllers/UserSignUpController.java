@@ -19,7 +19,7 @@ public class UserSignUpController {
     public UserResponseDTO signUpUser(UserRequestDTO requestDTO){
         UserResponseDTO responseDTO= new UserResponseDTO();
         try{
-            User user =us.signUpUser(requestDTO.getEmail(),requestDTO.getName(),requestDTO.getPassword());
+            User user =us.signUpUser(requestDTO.getEmail(),requestDTO.getName(),requestDTO.getPassword(), requestDTO.getRole());
             responseDTO.setResponseStatus(UserResponseStatus.SUCCESS);
             responseDTO.setUserId(user.getId());
         }

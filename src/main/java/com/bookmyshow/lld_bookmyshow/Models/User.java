@@ -24,7 +24,6 @@ public class User extends BaseClass{
     private List<Ticket> tickets;
 
     @Enumerated
-    @ElementCollection
-    private List<Role> roles;
+    private Role roles;
 
 }
