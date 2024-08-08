@@ -2,6 +2,7 @@ package com.bookmyshow.lld_bookmyshow.manager;
 
 import com.bookmyshow.lld_bookmyshow.Controllers.TheatreSetupController;
 import com.bookmyshow.lld_bookmyshow.Controllers.UserSignUpController;
+import com.bookmyshow.lld_bookmyshow.Models.Show;
 import com.bookmyshow.lld_bookmyshow.Models.enums.Role;
 import com.bookmyshow.lld_bookmyshow.Repository.UserRepository;
 import com.bookmyshow.lld_bookmyshow.dtos.TheatreSetupRequestDTO;
@@ -9,6 +10,8 @@ import com.bookmyshow.lld_bookmyshow.dtos.TheatreSetupResponseDTO;
 import com.bookmyshow.lld_bookmyshow.dtos.UserRequestDTO;
 import com.bookmyshow.lld_bookmyshow.dtos.UserResponseDTO;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserManager {
@@ -40,7 +43,25 @@ public class UserManager {
                 requestDTO1.setTheatreName(theatreName);
                 String theatreAddress=sc.nextLine();
                 requestDTO1.setTheatreAddress(theatreAddress);
-            }
+            } else if (role.equals("Owner")) {
+                 System.out.println("Enter your Theatre Id: ");
+                 int theatreId=sc.nextInt();
+                 System.out.println("Enter how many auditoriums will your Theatre have ? ");
+                 int noOfAudi=sc.nextInt();
+                 System.out.println("Enter the number of seats dimensions you would like to have?");
+                 int rowSeat=sc.nextInt();
+                 int colSeat=sc.nextInt();
+                 System.out.println(" How many show you would like to have?");
+                 List<String> showNameList=new ArrayList<>();
+                while (true){
+                    String showName=sc.nextLine();
+                    showNameList.add(showName);
+                    if(showName.equalsIgnoreCase("exit"))
+                    {
+                        break;
+                    }
+                }
+             }
             System.out.println("Do you want to exit");
             String check = sc.nextLine();
             UserResponseDTO responseDTO = usc.signUpUser(requestDTO);
