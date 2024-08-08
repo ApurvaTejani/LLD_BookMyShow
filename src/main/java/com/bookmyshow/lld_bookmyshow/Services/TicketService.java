@@ -1,5 +1,8 @@
 package com.bookmyshow.lld_bookmyshow.Services;
 
+import com.bookmyshow.lld_bookmyshow.Exceptions.NoSeatAvailableException;
+import com.bookmyshow.lld_bookmyshow.Exceptions.ShowNotFoundException;
+import com.bookmyshow.lld_bookmyshow.Exceptions.UserNotFoundException;
 import com.bookmyshow.lld_bookmyshow.Models.*;
 import com.bookmyshow.lld_bookmyshow.Models.enums.SeatStatus;
 import com.bookmyshow.lld_bookmyshow.Models.enums.TicketStatus;
@@ -7,9 +10,10 @@ import com.bookmyshow.lld_bookmyshow.Repository.SeatInShowRepository;
 import com.bookmyshow.lld_bookmyshow.Repository.ShowRepository;
 import com.bookmyshow.lld_bookmyshow.Repository.TicketRepository;
 import com.bookmyshow.lld_bookmyshow.Repository.UserRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,23 +40,30 @@ public class TicketService {
         this.tr=tr;
     }
 
-    @Transactional
-    public Ticket bookTicket(List<Integer> seatInShowId,int showId, int userId){
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public Ticket bookTicket(List<Integer> seatInShowId,int showId, int userId) throws ShowNotFoundException, UserNotFoundException, NoSeatAvailableException {
         Ticket ticket= new Ticket();
         Optional<User> userOptional=ur.findById(userId);
         if(userOptional.isEmpty()){
-            throw new RuntimeException("User not found");
+            throw new UserNotFoundException();
         }
         ticket.setUser(userOptional.get());
         Optional<Show> showOptional=sr.findById(showId);
         if(showOptional.isEmpty()){
-            throw  new RuntimeException("Show not Found");
+            throw new ShowNotFoundException();
         }
+
         ticket.setShow(showOptional.get());
         List<SeatInShow> seatInShowList=sisr.findAllById(seatInShowId);
         for (SeatInShow oneSeat:seatInShowList) {
-            if(!oneSeat.getSeatStatus().equals(SeatStatus.AVAILABLE))
-                throw new RuntimeException("No Seats are available");
+            Long currentTime=System.currentTimeMillis();
+            Long lockedAt=oneSeat.getStatusUpdatedAt().getTime();
+            Long diff=currentTime-lockedAt/(1000*60);
+           if(oneSeat.getSeatStatus().equals(SeatStatus.LOCKED)&& diff<10)
+               throw new NoSeatAvailableException();
+           else if (oneSeat.getSeatStatus().equals(SeatStatus.BOOKED)) {
+               throw new NoSeatAvailableException();
+           }
         }
         for (SeatInShow oneSeat:seatInShowList) {
             if(oneSeat.getSeatStatus().equals(SeatStatus.AVAILABLE)) {
@@ -67,6 +78,7 @@ public class TicketService {
         ticket.setAmount(100);
         List<Payment> paymentList= new ArrayList<>();
         ticket.setPayments(paymentList);
-        return ticket;
+        Ticket savedTicket=tr.save(ticket);
+        return savedTicket;
     }
 }
