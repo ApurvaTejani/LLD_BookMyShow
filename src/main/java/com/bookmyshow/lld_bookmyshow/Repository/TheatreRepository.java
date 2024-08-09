@@ -13,4 +13,6 @@ public interface TheatreRepository extends JpaRepository<Theatre,Integer> {
     Optional<Theatre> findByName(String theatreName);
     List<Theatre> findAllByName(String cityname);
 
+    Optional<Theatre> findById(int theatreId);
+
 }

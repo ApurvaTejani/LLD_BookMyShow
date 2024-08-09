@@ -1,5 +1,6 @@
 package com.bookmyshow.lld_bookmyshow;
 
+import com.bookmyshow.lld_bookmyshow.Controllers.AuditoriumController;
 import com.bookmyshow.lld_bookmyshow.Controllers.TheatreSetupController;
 import com.bookmyshow.lld_bookmyshow.Controllers.UserSignUpController;
 import com.bookmyshow.lld_bookmyshow.Models.City;
@@ -25,11 +26,14 @@ public class LldBookMyShowApplication implements CommandLineRunner {
     @Autowired
     private TheatreSetupController tsc;
 
+    @Autowired
+    private AuditoriumController ac;
+
     @Override
     public void run (String... arg)throws Exception{
         Scanner sc = new Scanner(System.in);
         UserManager um = new UserManager();
-        um.initializeUser(usc,tsc,sc);
+        um.initializeUser(usc,tsc,ac,sc);
     }
 
     public static void main(String[] args) {
